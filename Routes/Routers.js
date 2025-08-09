@@ -1,7 +1,7 @@
 import express from "express"
 const Router = express.Router()
 import { signup , login, verifyEmailOTP, resendEmail, logout } from "../controller/auth/auth.js"
-import { getBeneficiaryInprogress, getBeneficiaryReject, getBeneficiaryPendding, getBeneficiaryComplete,getAllBeneficiary, updateUserByAdmin, deleteUserByAdmin} from "../controller/admin/admin.js"
+import { getBeneficiaryInprogress, getBeneficiaryReject, getBeneficiaryPendding, getBeneficiaryComplete,getAllBeneficiary, getVerifieduser, getNonVerifieduser, updateUserByAdmin, deleteUserByAdmin} from "../controller/admin/admin.js"
 import {getBeneficiary, createBeneficiaryRequest} from "../controller/Receptionist/Receptionist.js"
 import { getBeneficiarybyDepartment, updateDataByDepartment } from "../controller/Department/department.js"
 import { authCheck } from "../middleware/authcheck.js"
@@ -29,7 +29,9 @@ Router.get("/admin/getbeneficiarypendding",   authCheckAdmin, getBeneficiaryPend
 Router.get("/admin/getbeneficiarycomplete",   authCheckAdmin, getBeneficiaryComplete  )
 Router.post("/admin/updateuser/:id",          authCheckAdmin, updateUserByAdmin       )
 Router.delete("/admin/deleteuser/:id",        authCheckAdmin, deleteUserByAdmin       )
-Router.post("/signup",                        authCheckAdmin, signup                  )
+Router.post("/admin/createUser",              authCheckAdmin, signup                  )
+Router.get("/admin/getverifieduser",          authCheckAdmin, getVerifieduser         )
+Router.get("/admin/getnonverifieduser",       authCheckAdmin, getNonVerifieduser      )
 
 
 export default Router

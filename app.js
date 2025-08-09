@@ -22,7 +22,7 @@ app.use(cookieParser())
 
 //Route
 app.use("/api",Routes)
-app.use("/",(req, res) => res.json({msg: "server start"}))
+app.use("/",(req, res) => res.json({ msg: "server start"}))
 
 
 //error middleware

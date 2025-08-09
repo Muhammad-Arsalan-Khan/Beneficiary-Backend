@@ -76,6 +76,32 @@ async function getBeneficiaryComplete(req, res, next) {
   }
 }
 
+async function getNonVerifieduser(req, res, next) {
+  try {
+    const response = await User.find({ isVerified: false , isAdmin: false})
+    return res.json({ msg: "get non verified users ", data: response })
+  } catch (error) {
+    const err = new Error(
+      "Something went wrong while getting the non verified users"
+    );
+    err.statusCode = 400;
+    next(err);
+  }
+}
+
+async function getVerifieduser(req, res, next) {
+  try {
+    const response = await User.find({ isVerified: true, isAdmin: false })
+    return res.json({ msg: "get verified user ", data: response })
+  } catch (error) {
+    const err = new Error(
+      "Something went wrong while getting the verified users"
+    );
+    err.statusCode = 400;
+    next(err);
+  }
+}
+
 async function updateUserByAdmin(req, res, next) {
   try {
     const id = req.params.id
@@ -131,5 +157,7 @@ export {
   getBeneficiaryPendding,
   getBeneficiaryComplete,
   updateUserByAdmin,
-  deleteUserByAdmin
+  deleteUserByAdmin,
+  getVerifieduser,
+  getNonVerifieduser,
 }

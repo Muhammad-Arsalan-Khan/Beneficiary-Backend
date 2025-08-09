@@ -3,7 +3,7 @@ import { dataToQrFnx } from "../../services/qr/qr.js"
 
 const getBeneficiarybyDepartment = async (req, res, next) => {
   try {
-    const { input } = req.body
+    const { input } = req.body;
     if (!input) {
       return res.json({ msg: "field is required" })
     }

@@ -26,13 +26,14 @@ const getBeneficiary = async (req, res, next) => {
 
 const createBeneficiaryRequest = async (req, res, next) => {
   try {
-    const { cnic, name, phone, address, purpose } = req.body;
+    let { cnic, name, phone, address, purpose } = req.body;
     if (!cnic || !name || !phone || !address || !purpose) {
-      const err = new Error("field are required");
+      const err = new Error("field are required")
       err.statusCode = 400;
       throw err
     }
-    let data = { cnic, name, phone, address, purpose };
+    cnic = Number(cnic)
+    let data = { cnic, name, phone, address, purpose }
     const token = shortid.generate();
     const qrCodeURL = (await dataToQrFnx({...data, token}, token)) || "qrCodeURL";
     data = { qrCodeURL, token,  ...data }
@@ -51,4 +52,4 @@ const createBeneficiaryRequest = async (req, res, next) => {
   }
 }
 
-export { getBeneficiary, createBeneficiaryRequest };
+export { getBeneficiary, createBeneficiaryRequest }

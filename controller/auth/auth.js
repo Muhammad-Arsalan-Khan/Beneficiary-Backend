@@ -9,12 +9,13 @@ let otpGenrate = Math.floor(100000 + Math.random() * 900000)
 
 async function login(req, res, next) {
   try {
-    const { cnic, password } = req.body
+    let { cnic, password } = req.body
     if(!cnic || !password){
        const err = new Error("field are required")
        err.statusCode = 400
        throw err
     }
+    cnic = Number(cnic)
     const data = { cnic,  password}
     const validatedData = userValidationSchemalogin.parse(data)
     if (!validatedData) {
@@ -40,7 +41,7 @@ async function login(req, res, next) {
 
     const isPasswordMatch = await bcrypt.compare( password, existingUser.password)
     if (!isPasswordMatch) {
-       const err = new Error("invalid email password")
+       const err = new Error("invalid cnic password")
        err.statusCode = 400
        throw err
     }
@@ -48,19 +49,34 @@ async function login(req, res, next) {
       username: existingUser.name,
       email: existingUser.email,
       id: existingUser._id,
+      type: existingUser.type,
+      isAdmin: existingUser.isAdmin,
+      isVerified: existingUser.isVerified
     }
     const id = userData.id
     const token = setUser(id)
     let Verified;
+    let Deparment;
+    let Receptionist;
     if (existingUser.isAdmin) {
       const isVerified = existingUser.isVerified
       Verified = setAdmin(isVerified)
+    }
+    if (existingUser.type == "Receptionist") {
+      const isReceptionist = existingUser.isVerified
+      Receptionist = setAdmin(isReceptionist)
+    }
+    if (existingUser.type == "Deparment") {
+      const isDeparment = existingUser.type
+      Deparment = setAdmin(isDeparment)
     }
     res.status(200).json({
       message: "login successful",
       user: userData,
       token,
-      Verified
+      Verified,
+      Receptionist,
+      Deparment
     })
   } catch (err) {
     next(err)
@@ -69,12 +85,13 @@ async function login(req, res, next) {
 
 async function signup(req, res, next) {
   try {
-    const { name, email, cnic, type, password} = req.body
+    let { name, email, cnic, type, password} = req.body
     if(!name || !email || !cnic || !type || !password){
       const err = new Error("field are required")
       err.statusCode = 400
       throw err
     }
+    cnic = Number(cnic)
     const data = { name, email, cnic, type, password}
     const validatedData = userValidationSchema.parse(data)
     if(!validatedData){

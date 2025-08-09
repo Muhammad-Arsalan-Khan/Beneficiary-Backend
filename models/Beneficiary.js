@@ -33,11 +33,11 @@ const beneficiarySchema = new mongoose.Schema({
   status: {
     type: String,
     default: 'Pending',
-    enum: ['Pending', 'In Progress', 'Completed', 'Rejected']
+    enum: ['Pending', 'In Progress', 'Completed', 'Rejected' ]
   },
   remarks: {
     type: String,
-    default: "update by department"
+    default: ""
   }
 }, {
   timestamps: true
