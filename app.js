@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import { connectMongoDB } from "./connection/db.js"
 import Routes from "./Routes/Routers.js"
 import { errorHandler } from "./middleware/errorHandler.js"
-// import { customLogger } from "./middleware/logMiddleware.js"
 dotenv.config()
 
 const app = express()
@@ -17,7 +16,7 @@ app.use(cors())
 app.use(cookieParser())
 
 //log middleware
-// app.use(customLogger)
+
 
 
 //Route
