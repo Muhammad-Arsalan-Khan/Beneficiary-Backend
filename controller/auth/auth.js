@@ -108,7 +108,7 @@ async function signup(req, res, next) {
     const hashedPassword = await bcrypt.hash(password, 10)
     const newUser = new User({ ...validatedData, password: hashedPassword })
     await newUser.save()
-    await verifyEmail(newUser.email, otpGenrate)
+    // await verifyEmail(newUser.email, otpGenrate)
     res.status(201).json({ message: "user registered successfully", data: newUser._id || "signup success" })
   } catch (err) {
      next(err)
