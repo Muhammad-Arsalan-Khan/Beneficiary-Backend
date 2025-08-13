@@ -27,7 +27,7 @@ Router.get("/admin/getbeneficiaryinprogress", authCheckAdmin, getBeneficiaryInpr
 Router.get("/admin/getbeneficiaryreject",     authCheckAdmin, getBeneficiaryReject    )
 Router.get("/admin/getbeneficiarypendding",   authCheckAdmin, getBeneficiaryPendding  )
 Router.get("/admin/getbeneficiarycomplete",   authCheckAdmin, getBeneficiaryComplete  )
-Router.post("/admin/updateuser/:id",          authCheckAdmin, updateUserByAdmin       )
+Router.put("/admin/updateuser/:id",          authCheckAdmin, updateUserByAdmin       )
 Router.delete("/admin/deleteuser/:id",        authCheckAdmin, deleteUserByAdmin       )
 Router.post("/admin/createUser",              authCheckAdmin, signup                  )
 Router.get("/admin/getverifieduser",          authCheckAdmin, getVerifieduser         )

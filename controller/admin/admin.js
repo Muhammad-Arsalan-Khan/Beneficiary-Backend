@@ -105,11 +105,13 @@ async function getVerifieduser(req, res, next) {
 async function updateUserByAdmin(req, res, next) {
   try {
     const id = req.params.id
+    console.log(id)
     if (!id) {
       return res.status(400).json({ msg: "user id is required" });
     }
     const { name, email, cnic, password, isVerified, type } = req.body;
     let data = {  name, email, cnic, password, isVerified, type }
+    console.log(data)
     if(password){
       const hashedPassword = await bcrypt.hash(password, 10)
       data = { ...data, password: hashedPassword }
@@ -117,6 +119,7 @@ async function updateUserByAdmin(req, res, next) {
     const updatedUser = await User.findByIdAndUpdate(id, data, {
       new: true,
     })
+    console.log(updatedUser)
     if (!updatedUser) {
       const err = new Error("user not found")
       err.statusCode = 400
@@ -124,6 +127,7 @@ async function updateUserByAdmin(req, res, next) {
     }
     res.status(200).json(updatedUser)
   } catch (error) {
+    console.log("error",error, "msg" ,error.message, "code", error.code)
     const err = new Error("Something went wrong while updating user");
     err.statusCode = 500;
     next(err);

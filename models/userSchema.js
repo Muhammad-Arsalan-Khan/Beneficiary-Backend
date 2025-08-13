@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    // unique: true, 
     lowercase: true,
     trim: true,
   },
@@ -17,7 +16,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true,
     minlength: 13,
-    unique: true,
   },
   password: {
     type: String,
@@ -41,6 +39,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true 
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema)
 
 export default User
